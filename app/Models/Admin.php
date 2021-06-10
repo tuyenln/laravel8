@@ -11,4 +11,20 @@ class Admin extends Model implements AuthenticatableContract
 {
     use HasFactory;
     use Authenticatable;
+
+    public function listingConfigs()
+    {
+        return [
+            [
+                'field' => 'name',
+                'name'  => 'Tên quản trị viên',
+                'type'  => 'text'
+            ],
+            [
+                'field' => 'email',
+                'name'  => 'Email',
+                'type'  => 'text'
+            ],
+        ];
+    }
 }

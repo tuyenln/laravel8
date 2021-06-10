@@ -1,3 +1,11 @@
+/*Paginate*/
+
+.page-item.active .page-link {
+    z-index: 1;
+    color: #fff;
+    background-color: #1ABB9C !important;
+    border-color: #1ABB9C !important;
+}
 @charset "UTF-8";
 @font-face {
   font-family: 'Glyphicons Halflings';
@@ -4902,4 +4910,3 @@ ul.notifications {
 
 .calendar-exibit .calendar-table {
   padding: 0 0 4px 0; }
-

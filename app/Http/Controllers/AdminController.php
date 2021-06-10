@@ -31,6 +31,7 @@ class AdminController extends Controller
 
     public function statistics()
     {
-        echo 'thong ke';
+        $admin = Auth::guard('admin')->user();
+        return view('admin.statistics', ['user' => $admin]);
     }
 }
