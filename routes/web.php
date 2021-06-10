@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
+use App\Http\Controllers\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,3 +39,14 @@ Route::post('/email/verification-notification', function (Request $request) {
 
     return back()->with('message', 'Verification link sent!');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+
+
+Route::get('admin/login', function() {
+    return view('admin.login');
+});
+
+Route::post('admin/login', [AdminController::class, 'loginPost'])->name('admin.loginPost');
+Route::get('admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
+Route::get('admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+
+Route::get('admin/statistics', [AdminController::class, 'statistics'])->name('admin.statistics');
