@@ -19,12 +19,8 @@ class AdminController extends Controller
 
     public function dashboard()
     {
-        if (Auth::guard('admin')->check()) {
-            $admin = Auth::guard('admin')->user();
-            return view('admin.dashboard', ['user' => $admin]);
-        } else {
-            return redirect('admin/login');
-        }
+        $admin = Auth::guard('admin')->user();
+        return view('admin.dashboard', ['user' => $admin]);
     }
 
     public function logout()
