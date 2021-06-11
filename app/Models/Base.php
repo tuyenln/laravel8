@@ -18,12 +18,14 @@ class Base extends Model
             [
                 'field' => 'created_at',
                 'name'  => 'Ngày tạo',
-                'type'  => 'text'
+                'type'  => 'text',
+                'sort'  => true
             ],
             [
                 'field' => 'updated_at',
                 'name'  => 'Ngày cập nhật',
                 'type'  => 'text',
+                'sort'  => true
             ],
             [
                 'field' => 'copy',
@@ -129,9 +131,9 @@ class Base extends Model
         ];
     }
 
-    public function getRecords($model, $conditions)
+    public function getRecords($model, $conditions, $orderBy)
     {
-        $records = $model::where($conditions)->paginate($this->perPage);
+        $records = $model::orderby($orderBy['field'], $orderBy['sort'])->where($conditions)->paginate($this->perPage)->withQueryString();
         return $records;
     }
 }

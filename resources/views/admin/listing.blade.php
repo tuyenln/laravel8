@@ -88,8 +88,33 @@
                     <thead>
                     <tr>
                         <!-- <th>#</th> -->
+
                         @foreach ($configs as $config)
-                            <th>{{ $config['name'] }}</th>
+
+                            @if ($orderBy['field'] == $config['field'])
+                                @if ($orderBy['sort'] == "desc")
+                                    @php
+                                        $sortHtml = '<i class="fa fa-sort-desc" aria-hidden="true"></i>';
+                                        $typeSort = '_asc';
+                                    @endphp
+                                @else
+                                    @php
+                                        $sortHtml = '<i class="fa fa-sort-asc" aria-hidden="true"></i>';
+                                        $typeSort = '_desc';
+                                    @endphp
+                                @endif
+                            @else
+                                @php
+                                    $typeSort = '_desc';
+                                    $sortHtml = '<i class="fa fa-sort" aria-hidden="true"></i>';
+                                @endphp
+                            @endif
+
+                            @if(isset($config['sort']))
+                                <th>{{ $config['name'] }}<a class="sort-icon" href="{{route('listing.index', ['model' => $model, 'sort' => $config['field'] . $typeSort ]) }}">{!! $sortHtml !!}</a></th>
+                            @else
+                                <th>{{ $config['name'] }}</th>
+                            @endif
                         @endforeach
                     </tr>
                     </thead>

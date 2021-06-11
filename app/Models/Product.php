@@ -18,13 +18,15 @@ class Product extends Model
                 'field' => 'id',
                 'name'  => 'ID',
                 'type'  => 'text',
-                'filter' => 'equal'
+                'filter' => 'equal',
+                'sort'  => true
             ],
             [
                 'field' => 'name',
                 'name'  => 'Tên sản phẩm',
                 'type'  => 'text',
-                'filter' => 'like'
+                'filter' => 'like',
+                'sort'  => true
             ],
             [
                 'field' => 'image',
@@ -35,7 +37,8 @@ class Product extends Model
                 'field' => 'price',
                 'name'  => 'Giá sản phẩm',
                 'type'  => 'number',
-                'filter'   => 'between'
+                'filter'   => 'between',
+                'sort'  => true
             ],
         ];
     }

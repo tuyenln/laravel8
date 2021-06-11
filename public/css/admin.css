@@ -20,6 +20,10 @@
     display:inline-block;
     margin-right: 15px;
 }
+
+.sort-icon {
+    float: right;
+}
 @charset "UTF-8";
 @font-face {
   font-family: 'Glyphicons Halflings';
