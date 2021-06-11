@@ -8,7 +8,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="icon" href="images/favicon.ico" type="image/ico" />
 
-        <title>Gentelella Alela! | </title>
+        <title>Intel System | </title>
 
         <!-- Bootstrap -->
         <link href="/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -54,7 +54,7 @@
                 <!-- footer content -->
                 <footer>
                 <div class="pull-right">
-                    Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
+                Intel System <a href="#"></a>
                 </div>
                 <div class="clearfix"></div>
                 </footer>

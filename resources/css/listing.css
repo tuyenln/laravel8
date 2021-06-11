@@ -1,8 +1,22 @@
 /*Paginate*/
-
 .page-item.active .page-link {
     z-index: 1;
     color: #fff;
     background-color: #1ABB9C !important;
     border-color: #1ABB9C !important;
+}
+
+.filter-form {
+    background: #FFF;
+    padding: 20px;
+}
+
+.filter-form label {
+    font-weight: bold;
+    color: #000;
+}
+
+.filter-item {
+    display:inline-block;
+    margin-right: 15px;
 }

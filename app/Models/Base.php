@@ -20,7 +20,22 @@ class Base extends Model
             [
                 'field' => 'updated_at',
                 'name'  => 'Ngày cập nhật',
-                'type'  => 'text'
+                'type'  => 'text',
+            ],
+            [
+                'field' => 'copy',
+                'name'  => 'Copy',
+                'type'  => 'copy'
+            ],
+            [
+                'field' => 'edit',
+                'name'  => 'Sửa',
+                'type'  => 'edit'
+            ],
+            [
+                'field' => 'delete',
+                'name'  => 'Xoá',
+                'type'  => 'delete'
             ],
         ];
     }

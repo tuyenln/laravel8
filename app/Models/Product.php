@@ -9,13 +9,22 @@ class Product extends Model
 {
     use HasFactory;
 
+    public $title= 'Sản phẩm';
+
     public function listingConfigs()
     {
         return [
             [
+                'field' => 'id',
+                'name'  => 'ID',
+                'type'  => 'text',
+                'filter' => 'equal'
+            ],
+            [
                 'field' => 'name',
                 'name'  => 'Tên sản phẩm',
-                'type'  => 'text'
+                'type'  => 'text',
+                'filter' => 'like'
             ],
             [
                 'field' => 'image',
@@ -25,7 +34,8 @@ class Product extends Model
             [
                 'field' => 'price',
                 'name'  => 'Giá sản phẩm',
-                'type'  => 'number'
+                'type'  => 'number',
+                'filter'   => 'between'
             ],
         ];
     }

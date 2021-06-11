@@ -3,20 +3,46 @@
 @section('content')
 <div class="">
     <div class="page-title">
-        <div class="title_left">
-        <h3>Tables <small>Some examples to get you started</small></h3>
-        </div>
+        <h3>{{$title}}</h3>
+        <form class="filter-form" action="#" method="post">
+            <fieldset>
+                <legend>Tìm kiếm:</legend>
+                @foreach ($configs as $config)
+                    @if (!empty($config['filter']))
+                        @switch($config['filter'])
+                            @case('equal')
+                                <div class="filter-item">
+                                    <label for="{{$config['name']}}">{{$config['name']}}:</label>
+                                    <input type="text" name="{{$config['field']}}" value="">
+                                </div>
+                                @break
+                            @case('like')
+                                <div class="filter-item">
+                                    <label for="{{$config['name']}}">{{$config['name']}}:</label>
+                                    <input type="text" name="{{$config['field']}}" value="">
+                                </div>
+                                @break
 
-        <div class="title_right">
-        <div class="col-md-5 col-sm-5   form-group pull-right top_search">
-            <div class="input-group">
-            <input type="text" class="form-control" placeholder="Search for...">
-            <span class="input-group-btn">
-                <button class="btn btn-default" type="button">Go!</button>
-            </span>
-            </div>
-        </div>
-        </div>
+                            @case('between')
+                            <div class="filter-item">
+                                <label for="price">{{$config['name']}} từ:</label>
+                                <input type="text" name="{{$config['field']}}[from]">
+                                <label for="price">Đến:</label>
+                                <input type="text" name="{{$config['field']}}[to]">
+                            </div>
+                                @break
+
+                            @default
+
+                        @endswitch
+                    @endif
+                @endforeach
+
+
+
+                <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+            </fieldset>
+        </form>
     </div>
 
     <div class="clearfix"></div>
@@ -47,7 +73,7 @@
                 <table class="table table-bordered">
                     <thead>
                     <tr>
-                        <th>#</th>
+                        <!-- <th>#</th> -->
                         @foreach ($configs as $config)
                             <th>{{ $config['name'] }}</th>
                         @endforeach
@@ -56,7 +82,7 @@
                     <tbody>
                     @foreach ($records as $record)
                         <tr>
-                            <th scope="row">{{ $loop->index + 1 }}</th>
+                            <!-- <th scope="row">{{ $loop->index + 1 }}</th> -->
                             @foreach ($configs as $config)
                                 @switch($config['type'])
                                     @case("text")
@@ -70,6 +96,16 @@
                                     @case("number")
                                         <td>{{ number_format($record[$config['field']]) }}</td>
                                         @break
+                                    @case("copy")
+                                        <td><a href="#"><i class="fa fa-clipboard" aria-hidden="true"></i>&nbsp;{{ $config['name'] }}</td>
+                                        @break
+                                    @case("edit")
+                                        <td><a href="#"><i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;{{ $config['name'] }}</td>
+                                        @break
+                                    @case("delete")
+                                        <td><a href="#"><i class="fa fa-trash" aria-hidden="true"></i>&nbsp;{{ $config['name'] }}</td>
+                                        @break
+
                                     @default
                                         <td>{{ $record[$config['field']] }}</td>
                                 @endswitch
