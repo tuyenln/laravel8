@@ -4,7 +4,8 @@
 <div class="">
     <div class="page-title">
         <h3>{{$title}}</h3>
-        <form class="filter-form" action="#" method="post">
+        <form class="filter-form" action="{{route('listing.index', ['model' => $model])}}" method="post">
+            @csrf
             <fieldset>
                 <legend>Tìm kiếm:</legend>
                 @foreach ($configs as $config)

@@ -55,7 +55,7 @@
                     <br />
 
                     <div>
-                    <h1><i class="fa fa-paw"></i> Laravel 8!</h1>
+                    <h1><i class="fa fa-paw"></i> Intel System</h1>
                     <p>©2021 All Rights Reserved</p>
                     </div>
                 </div>

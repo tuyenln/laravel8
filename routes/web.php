@@ -54,4 +54,5 @@ Route::middleware(['admin'])->group(function () {
     Route::get('admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     Route::get('admin/statistics', [AdminController::class, 'statistics'])->name('admin.statistics');
     Route::get('admin/listing/{model}', [ListingController::class, 'index'])->name('listing.index');
+    Route::post('admin/listing/{model}', [ListingController::class, 'index'])->name('listing.index');
 });
