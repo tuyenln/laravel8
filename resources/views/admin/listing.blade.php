@@ -8,28 +8,41 @@
             @csrf
             <fieldset>
                 <legend>Tìm kiếm:</legend>
+
                 @foreach ($configs as $config)
                     @if (!empty($config['filter']))
+                        @if (empty($config['filter_value']))
+                            {{ $config['filter_value'] = '' }}
+                        @endif
+
+                        @if (empty($config['filter_from_value']))
+                            {{ $config['filter_from_value'] = '' }}
+                        @endif
+
+                        @if (empty($config['filter_to_value']))
+                            {{ $config['filter_to_value'] = '' }}
+                        @endif
+
                         @switch($config['filter'])
                             @case('equal')
                                 <div class="filter-item">
                                     <label for="{{$config['name']}}">{{$config['name']}}:</label>
-                                    <input type="text" name="{{$config['field']}}" value="">
+                                    <input type="text" name="{{$config['field']}}" value="{{ $config['filter_value'] }}">
                                 </div>
                                 @break
                             @case('like')
                                 <div class="filter-item">
                                     <label for="{{$config['name']}}">{{$config['name']}}:</label>
-                                    <input type="text" name="{{$config['field']}}" value="">
+                                    <input type="text" name="{{$config['field']}}" value="{{ $config['filter_value'] }}">
                                 </div>
                                 @break
 
                             @case('between')
                             <div class="filter-item">
                                 <label for="price">{{$config['name']}} từ:</label>
-                                <input type="text" name="{{$config['field']}}[from]">
+                                <input type="text" name="{{$config['field']}}[from]" value="{{ $config['filter_from_value'] }}">
                                 <label for="price">Đến:</label>
-                                <input type="text" name="{{$config['field']}}[to]">
+                                <input type="text" name="{{$config['field']}}[to]" value="{{ $config['filter_to_value'] }}">
                             </div>
                                 @break
 

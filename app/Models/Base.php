@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Cookie;
 
 class Base extends Model
 {
@@ -42,11 +43,12 @@ class Base extends Model
         ];
     }
 
-    public function getFilter($request, $configs)
+    public function getFilter($request, $configs, $model)
     {
         $conditions = [];
+        $modelFilter = Cookie::get(strtolower($model).'_filter');
         if ($request->method() == 'POST') {
-            foreach ($configs as $config) {
+            foreach ($configs as &$config) {
                 if (!empty($config['filter'])) {
                     $value = $request->input($config['field']);
                     if (empty($value)) {
@@ -59,6 +61,7 @@ class Base extends Model
                                 'condition' => '=',
                                 'value' => $value
                             ];
+                            $config['filter_value'] = $value;
                             break;
                         case 'like':
                             $conditions[] = [
@@ -66,6 +69,7 @@ class Base extends Model
                                 'condition' => 'like',
                                 'value' => '%'. $value . '%'
                             ];
+                            $config['filter_value'] = $value;
                             break;
                         case 'between':
                             if (!empty($value['from'])) {
@@ -74,6 +78,7 @@ class Base extends Model
                                     'condition' => '>=',
                                     'value'     => $value['from']
                                 ];
+                                $config['filter_from_value'] = $value['from'];
                             }
                             if (!empty($value['to'])) {
                                 $conditions[] = [
@@ -81,14 +86,47 @@ class Base extends Model
                                     'condition' => '<=',
                                     'value'     => $value['to']
                                 ];
+                                $config['filter_to_value'] = $value['to'];
                             }
                             break;
                         default:
                     }
                 }
+                // if (!empty($conditions)) {
+                    Cookie::queue(strtolower($model).'_filter', json_encode($conditions), 24 * 60);
+                // }
+            }
+        } else {
+            //Get Method
+            $conditions = json_decode($modelFilter, true);
+            if ($conditions) {
+                foreach ($conditions as $condition) {
+                    foreach ($configs as &$config) {
+                        if ($config['field'] == $condition['field'] ) {
+                            switch($config['filter']) {
+                                case 'equal':
+                                    $config['filter_value'] = $condition['value'];
+                                    break;
+                                case 'like':
+                                    $config['filter_value'] = str_replace("%", "", $condition['value']);
+                                    break;
+                                case 'between':
+                                    if ($condition['condition'] == '>=') {
+                                        $config['filter_from_value'] = $condition['value'];
+                                    } else {
+                                        $config['filter_to_value'] = $condition['value'];
+                                    }
+                                    break;
+                            }
+                        }
+                    }
+                }
             }
         }
-        return $conditions;
+        return [
+            'conditions' => $conditions,
+            'configs' => $configs
+        ];
     }
 
     public function getRecords($model, $conditions)
