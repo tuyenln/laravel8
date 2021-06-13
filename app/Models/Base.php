@@ -19,28 +19,38 @@ class Base extends Model
                 'field' => 'created_at',
                 'name'  => 'Ngày tạo',
                 'type'  => 'text',
-                'sort'  => true
+                'sort'  => true,
+                'listing' => true,
+                'editing'   => false
             ],
             [
                 'field' => 'updated_at',
                 'name'  => 'Ngày cập nhật',
                 'type'  => 'text',
-                'sort'  => true
+                'sort'  => true,
+                'listing' => true,
+                'editing'   => false
             ],
             [
                 'field' => 'copy',
                 'name'  => 'Copy',
-                'type'  => 'copy'
+                'type'  => 'copy',
+                'listing' => true,
+                'editing'   => false
             ],
             [
                 'field' => 'edit',
                 'name'  => 'Sửa',
-                'type'  => 'edit'
+                'type'  => 'edit',
+                'listing' => true,
+                'editing'   => false
             ],
             [
                 'field' => 'delete',
                 'name'  => 'Xoá',
-                'type'  => 'delete'
+                'type'  => 'delete',
+                'listing' => true,
+                'editing'   => false
             ],
         ];
     }
@@ -48,7 +58,7 @@ class Base extends Model
     public function getFilter($request, $configs, $model)
     {
         $conditions = [];
-        $modelFilter = Cookie::get(strtolower($model).'_filter');
+        $modelFilter = Cookie::get(strtolower($model) . '_filter');
         if ($request->method() == 'POST') {
             foreach ($configs as &$config) {
                 if (!empty($config['filter'])) {
@@ -69,7 +79,7 @@ class Base extends Model
                             $conditions[] = [
                                 'field' => $config['field'],
                                 'condition' => 'like',
-                                'value' => '%'. $value . '%'
+                                'value' => '%' . $value . '%'
                             ];
                             $config['filter_value'] = $value;
                             break;
@@ -95,7 +105,7 @@ class Base extends Model
                     }
                 }
                 // if (!empty($conditions)) {
-                    Cookie::queue(strtolower($model).'_filter', json_encode($conditions), 24 * 60);
+                Cookie::queue(strtolower($model) . '_filter', json_encode($conditions), 24 * 60);
                 // }
             }
         } else {
@@ -104,8 +114,8 @@ class Base extends Model
             if ($conditions) {
                 foreach ($conditions as $condition) {
                     foreach ($configs as &$config) {
-                        if ($config['field'] == $condition['field'] ) {
-                            switch($config['filter']) {
+                        if ($config['field'] == $condition['field']) {
+                            switch ($config['filter']) {
                                 case 'equal':
                                     $config['filter_value'] = $condition['value'];
                                     break;

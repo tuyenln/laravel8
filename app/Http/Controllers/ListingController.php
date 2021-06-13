@@ -23,7 +23,8 @@ class ListingController extends Controller
         $admin = Auth::guard('admin')->user();
         $model = new $model;
         $config = $model->listingConfigs();
-        $config = array_merge($config,$this->defaultListingConfigs);
+        $config = array_merge($config, $this->defaultListingConfigs);
+
         $filterResult = $this->baseModel->getFilter($request, $config, $modelName);
 
         $orderBy = [

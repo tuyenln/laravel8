@@ -9,7 +9,11 @@ class Product extends Model
 {
     use HasFactory;
 
-    public $title= 'Sản phẩm';
+    public $title = 'Sản phẩm';
+
+    public function editingConfigs()
+    {
+    }
 
     public function listingConfigs()
     {
@@ -19,26 +23,41 @@ class Product extends Model
                 'name'  => 'ID',
                 'type'  => 'text',
                 'filter' => 'equal',
-                'sort'  => true
+                'sort'  => true,
+                'listing'   => true,
+                'editing'   => false
             ],
             [
                 'field' => 'name',
                 'name'  => 'Tên sản phẩm',
                 'type'  => 'text',
                 'filter' => 'like',
-                'sort'  => true
+                'sort'  => true,
+                'listing'   => true,
+                'editing'   => true
             ],
             [
                 'field' => 'image',
                 'name'  => 'Ảnh sản phẩm',
-                'type'  => 'image'
+                'type'  => 'image',
+                'listing'   => true,
+                'editing'   => true
             ],
             [
                 'field' => 'price',
                 'name'  => 'Giá sản phẩm',
                 'type'  => 'number',
                 'filter'   => 'between',
-                'sort'  => true
+                'sort'  => true,
+                'listing'   => true,
+                'editing'   => true,
+            ],
+            [
+                'field' => 'content',
+                'name'  => 'Nội dung',
+                'type'  => 'ckeditor',
+                'listing'   => false,
+                'editing'   => true,
             ],
         ];
     }

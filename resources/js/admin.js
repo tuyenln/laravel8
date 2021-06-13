@@ -5037,3 +5037,5 @@ $(document).ready(function () {
     init_autocomplete();
 
 });
+
+import editing from './admin/editing'
