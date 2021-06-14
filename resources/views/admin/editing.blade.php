@@ -26,9 +26,6 @@
             @csrf
             @if (!empty($configs))
                 @foreach ($configs as $config)
-                    @if (!$config['editing'])
-                        @continue
-                    @endif
                     @switch($config['type'])
                         @case('text')
                             <div class="form-group row ">

@@ -6,8 +6,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use App\Models\Base;
 
-class Admin extends Model implements AuthenticatableContract
+class Admin extends Base implements AuthenticatableContract
 {
     use HasFactory;
     use Authenticatable;
@@ -16,7 +17,8 @@ class Admin extends Model implements AuthenticatableContract
 
     public function listingConfigs()
     {
-        return [
+        $defaultListingConfigs = parent::defaultListingConfigs();
+        $listingConfigs =  [
             [
                 'field' => 'id',
                 'name'  => 'ID',
@@ -33,5 +35,6 @@ class Admin extends Model implements AuthenticatableContract
                 'type'  => 'text'
             ],
         ];
+        return array_merge($listingConfigs, $defaultListingConfigs);
     }
 }

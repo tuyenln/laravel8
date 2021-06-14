@@ -4,20 +4,19 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Base;
 
-class Product extends Model
+class Product extends Base
 {
     use HasFactory;
 
     public $title = 'Sản phẩm';
 
-    public function editingConfigs()
-    {
-    }
 
-    public function listingConfigs()
+    public function configs()
     {
-        return [
+        $defaultListingConfigs = parent::defaultListingConfigs();
+        $listingConfigs =  [
             [
                 'field' => 'id',
                 'name'  => 'ID',
@@ -60,5 +59,6 @@ class Product extends Model
                 'editing'   => true,
             ],
         ];
+        return array_merge($listingConfigs, $defaultListingConfigs);
     }
 }

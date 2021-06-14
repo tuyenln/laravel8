@@ -12,6 +12,28 @@ class Base extends Model
 
     protected $perPage = 5;
 
+    public function listingConfigs()
+    {
+        return $this->getConfigs('listing');
+    }
+
+    public function editingConfigs()
+    {
+        return $this->getConfigs('editing');
+    }
+
+    public function getConfigs($interface)
+    {
+        $configs = $this->configs();
+        $result = [];
+        foreach ($configs as $config) {
+            if (!empty($config[$interface]) && $config[$interface] == true) {
+                $result[] = $config;
+            }
+        }
+        return $result;
+    }
+
     public function defaultListingConfigs()
     {
         return [
@@ -141,9 +163,9 @@ class Base extends Model
         ];
     }
 
-    public function getRecords($model, $conditions, $orderBy)
+    public function getRecords($conditions, $orderBy)
     {
-        $records = $model::orderby($orderBy['field'], $orderBy['sort'])->where($conditions)->paginate($this->perPage)->withQueryString();
+        $records = self::orderby($orderBy['field'], $orderBy['sort'])->where($conditions)->paginate($this->perPage)->withQueryString();
         return $records;
     }
 }
