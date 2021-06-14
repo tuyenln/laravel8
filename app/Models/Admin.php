@@ -15,7 +15,7 @@ class Admin extends Base implements AuthenticatableContract
 
     public $title = 'Quản trị viên';
 
-    public function listingConfigs()
+    public function configs()
     {
         $defaultListingConfigs = parent::defaultListingConfigs();
         $listingConfigs =  [
