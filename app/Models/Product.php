@@ -33,7 +33,8 @@ class Product extends Base
                 'filter' => 'like',
                 'sort'  => true,
                 'listing'   => true,
-                'editing'   => true
+                'editing'   => true,
+                'validate'  => 'required|max:100',
             ],
             [
                 'field' => 'image',
@@ -50,6 +51,7 @@ class Product extends Base
                 'sort'  => true,
                 'listing'   => true,
                 'editing'   => true,
+                'validate'  => 'required|numeric'
             ],
             [
                 'field' => 'content',

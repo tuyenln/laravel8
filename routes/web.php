@@ -43,7 +43,7 @@ Route::post('/email/verification-notification', function (Request $request) {
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
 
-Route::get('admin/login', function() {
+Route::get('admin/login', function () {
     return view('admin.login');
 });
 
@@ -58,4 +58,6 @@ Route::middleware(['admin'])->group(function () {
     Route::post('admin/listing/{model}', [ListingController::class, 'index'])->name('listing.index');
 
     Route::get('admin/editing/{model}', [EditingController::class, 'create'])->name('editing.create');
+
+    Route::post('admin/editing/{model}', [EditingController::class, 'store'])->name('editing.store');
 });
