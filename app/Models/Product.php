@@ -10,6 +10,8 @@ class Product extends Base
 {
     use HasFactory;
 
+    protected $fillable = ['name', 'price', 'image', 'content'];
+
     public $title = 'Sản phẩm';
 
 

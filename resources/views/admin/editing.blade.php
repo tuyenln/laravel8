@@ -22,6 +22,11 @@
             <div class="clearfix"></div>
         </div>
         <div class="x_content">
+            @if (session()->has('alert-success'))
+                <div class="alert alert-success">
+                    {{ session()->get('alert-success') }}
+                </div>
+            @endif
             <br />
             <form class="form-horizontal form-label-left" method="POST" enctype="multipart/form-data"
                 action="{{ route('editing.store', ['model' => 'product']) }}">

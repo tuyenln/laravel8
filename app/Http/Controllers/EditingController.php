@@ -27,10 +27,6 @@ class EditingController extends Controller
 
     public function store(Request $request, $modelName)
     {
-        if ($request->hasFile('image')) {
-            echo 1;
-            die;
-        }
         $admin = Auth::guard('admin')->user();
         $model = '\App\Models\\' . ucfirst($modelName);
         $model = new $model;
@@ -47,11 +43,38 @@ class EditingController extends Controller
 
 
         $validated = $request->validate($arrayValidateFields);
+        $data = [];
+        foreach ($config as $conf) {
+            if (!empty($conf['editing']) && $conf['editing']) {
+                switch ($conf['type']) {
+                    case 'image':
+                        if ($request->hasFile($conf['field'])) {
+                            $name = $request->file($conf['field'])->getClientOriginalName();
+                            $path = $request->file($conf['field'])->storeAs(
+                                'public/product',
+                                $name
+                            );
+                            $data[$conf['field']] = '/' . str_replace("public", "storage", $path);
+                        }
+                        break;
+                    default:
+                        $data[$conf['field']] = $request->input($conf['field']);
+                        break;
+                }
+            }
+        }
 
+        $res = $model->create($data);
+        if ($res) {
+            $request->session()->flash('alert-success', 'Product was successful added!');
+        } else {
+            $request->session()->flash('alert-error', 'Product save fail!');
+        }
 
         return view('admin.editing', [
-            'user'     => $admin,
-            'model'    => $modelName,
+            'success'   => $res,
+            'user'      => $admin,
+            'model'     => $modelName,
             'configs'    => $config
         ]);
     }
